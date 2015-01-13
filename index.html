@@ -112,10 +112,11 @@ d3.json("countries.topo.json", function (error, us) {
             })
             .attr("text-anchor", "middle")
             .attr('font-size', '4pt');
+    //http://stackoverflow.com/questions/17425268/d3js-automatic-labels-placement-to-avoid-overlaps-force-repulsion
     arrangeLabels();
 
 });
-
+//http://stackoverflow.com/questions/17425268/d3js-automatic-labels-placement-to-avoid-overlaps-force-repulsion
 function arrangeLabels() {
 
     var move = 1;
@@ -224,7 +225,7 @@ function country_clicked(d) {
                         })
                         .attr("text-anchor", "middle")
                         .attr('font-size', '1pt');
-
+                //http://stackoverflow.com/questions/17425268/d3js-automatic-labels-placement-to-avoid-overlaps-force-repulsion
                 arrangeLabels();
 
                 zoom(xyz);
@@ -281,3 +282,4 @@ $(window).resize(function () {
 </script>
 </body>
 </html>
+
