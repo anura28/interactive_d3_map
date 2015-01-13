@@ -175,6 +175,7 @@ function get_xyz(d) {
 }
 
 function country_clicked(d) {
+    
     g.selectAll(["#states", "#cities"]).remove();
     state = null;
 
@@ -207,7 +208,9 @@ function country_clicked(d) {
                 d3.selectAll(".country-label").style('visibility', 'hidden');
                 d3.selectAll(".state-label").style('visibility', 'visible');
 
-                g.select("text")
+                
+                g.append("g")
+                        .attr("class", "state-labels")
                         .selectAll("text:not(.country-label)")
                         .data(topojson.feature(us, us.objects.states).features)
                         .enter()
@@ -224,7 +227,7 @@ function country_clicked(d) {
                             return  path.centroid(d)[1];
                         })
                         .attr("text-anchor", "middle")
-                        .attr('font-size', '1pt');
+                        .attr('font-size', '2pt');
                 //http://stackoverflow.com/questions/17425268/d3js-automatic-labels-placement-to-avoid-overlaps-force-repulsion
                 arrangeLabels();
 
