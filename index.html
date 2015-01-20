@@ -15,7 +15,7 @@
         }
 
         #countries, #states {
-            fill: #cde;
+            fill: #00ad70;
             stroke: #fff;
             stroke-linejoin: round;
             stroke-linecap: round;
@@ -40,11 +40,12 @@
             padding: 9.5px;
         }
 
-        .countryText {
-
+        .country-label {
+            color:#fff;
         }
 
-        .state-Text {
+        .state-label {
+            color:#fff;
 
         }
 
@@ -57,8 +58,8 @@
 <script src="http://d3js.org/topojson.v1.min.js"></script>
 <script>
 var m_width = $("#map").width(),
-        width = 938,
-        height = 500,
+        width = 1500,
+        height = 800,
         country,
         state;
 
@@ -83,7 +84,7 @@ svg.append("rect")
 
 var g = svg.append("g");
 
-d3.json("countries.topo.json", function (error, us) {
+d3.json("countries.phone.number.topo.json", function (error, us) {
     g.append("g")
             .attr("id", "countries")
             .selectAll("path")
@@ -111,7 +112,8 @@ d3.json("countries.topo.json", function (error, us) {
                 return  path.centroid(d)[1];
             })
             .attr("text-anchor", "middle")
-            .attr('font-size', '4pt');
+            .attr('font-size', '4pt')
+            .attr('color', '#fff');
     //http://stackoverflow.com/questions/17425268/d3js-automatic-labels-placement-to-avoid-overlaps-force-repulsion
     arrangeLabels();
 
@@ -282,6 +284,33 @@ $(window).resize(function () {
     svg.attr("width", w);
     svg.attr("height", w * height / width);
 });
+
+$(function(){
+    //get svg element.
+    var svg = document.getElementById("svg");
+
+//get svg source.
+    var serializer = new XMLSerializer();
+    var source = serializer.serializeToString(svg);
+
+//add name spaces.
+    if(!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)){
+        source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+    }
+    if(!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)){
+        source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+    }
+
+//add xml declaration
+    source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+
+//convert svg source to URI data scheme.
+    var url = "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(source);
+
+//set url value to a element's href attribute.
+    document.getElementById("link").href = url;
+//you can download svg file by right click menu.
+})
 </script>
 </body>
 </html>
